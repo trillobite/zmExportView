@@ -33,7 +33,7 @@ define([], () => {
             accept: "image/*",
         })
 
-        let extractDirs = () => {
+        let extractEventDirs = () => {
             let dfd = $.Deferred();
 
             let clean = (arr) => {
@@ -56,6 +56,32 @@ define([], () => {
                 });
                 return dirArr;
             };
+            let fetchImgArr = (obj) => {
+                let dfd = $.Deferred();
+                fetch(obj)
+                    .then(response => response.text())
+                    .then((text) => {
+                        let key = "variableslide";
+                        let indx = text.indexOf(key) + key.length; //only get the list of images.
+                        let tmp = text.substring(indx, text.length);
+
+                        let indxL = tmp.indexOf("[") + 1; //we don't want to include the bracket.
+                        let indxR = tmp.indexOf("]") - 1; //we don't want to include the bracket.
+                        tmp = tmp.substring(indxL, indxR);
+                        let imgArr = tmp.split(",");
+                        dfd.resolve(imgArr);
+                    })
+
+                return dfd.promise();
+            }
+            let getImgArr = (arr) => {
+                let jsonArr = [];
+                arr.map((obj) => {
+                    if(obj) {
+
+                    }
+                })
+            }
 
             fetch('zmEventImagesMaster_20190108_112132.html')
                 .then(response => response.text())
@@ -71,7 +97,7 @@ define([], () => {
             return dfd.promise();
         };
 
-
+        
 
     };
 
