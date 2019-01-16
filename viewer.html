@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>OLD TOWN DINING LLC</title>
+    <link rel="stylesheet" href="scripts/css/bootstrap.css" >
+    <link rel="stylesheet" href="scripts/css/script.css">
+    <script data-main="scripts/requireConfig" src='scripts/require.js'></script>
+    <script>
+        require(['jquery', "jsonHTML.min", "views/videoView"], ($, sig, videoView) => {
+            $(document).ready(() => {
+                console.log("ready");
+                let view = videoView();
+                view.appendTo("body").state.done(() => {
+                    view.refresh();
+                });
+            });
+        });
+    </script>
+</head>
+
+<body></body>
+
+</html>
