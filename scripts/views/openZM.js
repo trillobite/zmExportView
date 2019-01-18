@@ -14,6 +14,7 @@ define(["procedures/genConfig"], (genConfig) => {
         <img id='output'>*/
 
         let inputObj = sig("input", {
+            id: "inputObj",
             type: "file",
             accept: "html/image/*", //can open images, html, and all.
         });

@@ -14,7 +14,7 @@ define([
         let optCtnr = sig();
         optCtnr.class = "col-lg-12";
         let evntLstCtnr= sig();
-        evntLstCtnr.class = "col-lg-2 col-md-4";
+        evntLstCtnr.class = "col-lg-2 col-md-4 alfiosify";
         evntLstCtnr.text = "Select Event To Play:";
         evntLstCtnr.css({
             "float": "left",
@@ -42,7 +42,11 @@ define([
 
         let title = sig();
         title.text = "Bailys";
-        title.class = "col-lg-4 col-sm-12 mx-auto";
+        title.class = "col-lg-4 col-sm-12 mx-auto alfiosify";
+        title.css({
+            "text-align": "center",
+            "font-size": "60px",
+        });
 
         header.addChild(title);
 
