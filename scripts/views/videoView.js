@@ -11,33 +11,27 @@ define([
 ], (viewContainer, eventList, genConfig) => {
     const videoView = () => {
 
-        let optionsContainer = sig();
-        optionsContainer.class = "col-lg-12";
+        let optCtnr = sig();
+        optCtnr.class = "col-lg-12";
+        let evntLstCtnr= sig();
+        evntLstCtnr.class = "col-lg-2 col-md-4";
+        evntLstCtnr.text = "Select Event To Play:";
+        evntLstCtnr.css({
+            "float": "left",
+        });
+        optCtnr.addChild(evntLstCtnr);
 
         let selFun = (input) => {
             let viewer = arrdb.get("viewBox");
             viewer.src = input;
             viewer.refresh();
-            /*viewer.refresh().state.done(() => {
-                let iframeBox = document.getElementById("viewBox");
-                let strHeight = iframeBox.contentWindow.slideheight;
-                console.log("strHeight", strHeight);
-                let cssHeight = (parseInt(strHeight.substring(0, strHeight.length - 2)) + 200).toString() + "px";
-                viewer.css({
-                    "height": cssHeight,
-                });
-            });*/
         };
 
-        let genConfigPromise = genConfig("zmEventImagesMaster_20190108_112132.html");
-        genConfigPromise.done((config) => {
-            let eventListContainer = sig();
-            eventListContainer.class = "col-lg-2 col-md-4";
+        genConfig("zmEventImagesMaster_20190108_112132.html").done((config) => {
             let eventListDrpDwn = eventList(config.directories, config.ids, selFun);
-            eventListContainer.addChild(eventListDrpDwn);
+            evntLstCtnr.addChild(eventListDrpDwn);
 
-            optionsContainer.addChild(eventListContainer);
-            optionsContainer.refresh();
+            evntLstCtnr.refresh();
         });
 
         let mainLayout = sig();
@@ -55,7 +49,7 @@ define([
         let view = viewContainer();
 
         //Note: elements will display organized by their placement in the array.
-        let arr = [header, optionsContainer, view];
+        let arr = [header, optCtnr, view];
         arr.map((obj) => {
             mainLayout.addChild(obj);
         });

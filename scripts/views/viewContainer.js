@@ -16,8 +16,8 @@ define([], () => {
         viewBox.css({ //default size
             "width": "100%",
             "min-height": "1280px",
-            "border": "1px solid gray",
-            "border-radius": "3px",
+            //"border": "1px solid gray",
+            //"border-radius": "3px",
         });
 
         container.addChild(viewBox);
