@@ -10,12 +10,12 @@ define([], () => {
         let container = sig();
         viewContainer.class= "row";
 
-        let viewBox = sig();
+        let viewBox = sig("iframe");
         viewBox.id = "viewBox";
         viewBox.class= "col-lg-12";
         viewBox.css({ //default size
-            "min-width": "800px",
-            "min-height": "600px",
+            "width": "100%",
+            "min-height": "1280px",
             "border": "1px solid gray",
             "border-radius": "3px",
         });
