@@ -7,14 +7,36 @@
 define([
     "views/viewContainer",
     "views/eventList",
-    "procedures/genConfig"
-], (viewContainer, eventList, genConfig) => {
+    "procedures/getConfig",
+    "views/openZM",
+], (viewContainer, eventList, getConfig, openZM) => {
     const videoView = () => {
 
+        let browser = sig();
+        browser.class = "col-lg-4 alfiosify";
+        let elem = openZM();
+
+        elem.event("change", () => {
+            console.log("elem change!");
+            getConfig().done((config) => {
+                console.log("config:", config);
+                let eventListDrpDwn = eventList(config.directories, config.ids, selFun);
+                evntLstCtnr.addChild(eventListDrpDwn);
+
+                evntLstCtnr.refresh();
+            });
+        });
+
+        browser.addChild(elem);
+        browser.css({
+            "float": "right",
+        });
+
+
         let optCtnr = sig();
-        optCtnr.class = "col-lg-12";
-        let evntLstCtnr= sig();
-        evntLstCtnr.class = "col-lg-2 col-md-4 alfiosify";
+        optCtnr.class = "col-lg-4";
+        let evntLstCtnr = sig();
+        evntLstCtnr.class = "col-lg-4 alfiosify";
         evntLstCtnr.text = "Select Event To Play:";
         evntLstCtnr.css({
             "float": "left",
@@ -26,13 +48,6 @@ define([
             viewer.src = input;
             viewer.refresh();
         };
-
-        genConfig("zmEventImagesMaster_20190108_112132.html").done((config) => {
-            let eventListDrpDwn = eventList(config.directories, config.ids, selFun);
-            evntLstCtnr.addChild(eventListDrpDwn);
-
-            evntLstCtnr.refresh();
-        });
 
         let mainLayout = sig();
         mainLayout.class = "container, col-sm-12";
@@ -53,7 +68,7 @@ define([
         let view = viewContainer();
 
         //Note: elements will display organized by their placement in the array.
-        let arr = [header, optCtnr, view];
+        let arr = [header, optCtnr, browser, view];
         arr.map((obj) => {
             mainLayout.addChild(obj);
         });
