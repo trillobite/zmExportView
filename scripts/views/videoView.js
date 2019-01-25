@@ -7,13 +7,14 @@
 define([
     "views/viewContainer",
     "views/eventList",
-    "procedures/genConfig"
-], (viewContainer, eventList, genConfig) => {
+    "procedures/genConfig",
+    "procedures/getConfig"
+], (viewContainer, eventList, genConfig, getConfig) => {
     const videoView = () => {
 
         let optCtnr = sig();
         optCtnr.class = "col-lg-12";
-        let evntLstCtnr= sig();
+        let evntLstCtnr = sig();
         evntLstCtnr.class = "col-lg-2 col-md-4 alfiosify";
         evntLstCtnr.text = "Select Event To Play:";
         evntLstCtnr.css({
@@ -27,12 +28,16 @@ define([
             viewer.refresh();
         };
 
-        genConfig("zmEventImagesMaster_20190108_112132.html").done((config) => {
-            let eventListDrpDwn = eventList(config.directories, config.ids, selFun);
-            evntLstCtnr.addChild(eventListDrpDwn);
+        getConfig("config").done((fileName) => {
+            console.log("fileName:", fileName);
+            genConfig(fileName).done((config) => {
+                let eventListDrpDwn = eventList(config.directories, config.ids, selFun);
+                evntLstCtnr.addChild(eventListDrpDwn);
 
-            evntLstCtnr.refresh();
+                evntLstCtnr.refresh();
+            });
         });
+
 
         let mainLayout = sig();
         mainLayout.class = "container, col-sm-12";
